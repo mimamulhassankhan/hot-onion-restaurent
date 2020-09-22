@@ -1,29 +1,64 @@
 import { Text } from '@fluentui/react';
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import picture from '../../Data/Image/adult-blur-blurred-background-687824.png'
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faShoppingCart, faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
+import { useHistory, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import TitleBar from '../TitleBar/TitleBar';
+import { addToCart } from '../../Redux/Actions/cartActions';
 
-const FoodDetails = (props) => {
-    console.log(props);
+const FoodDetails = ({cart, products, addToCart}) => {
+    const {itemId} = useParams();
+    const history = useHistory();
+    const [selectedProduct] = products.filter(pd => pd.id.toString() === itemId.toString());
+    const {name, price, id, photo1Url, photo2Url, photo3Url, longDescription} = selectedProduct;
+    
+    const handleBackToShopButton = event => {
+        history.goBack();
+        event.preventDefault();
+    }
+
     return (
-        <>
+        <>  
+            <TitleBar></TitleBar>
+            
             <Container>
                 <Row>
                     <Col>
-                        <h1>This is food text.</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda animi at perspiciatis? Veritatis veniam, maiores quidem corrupti nemo obcaecati hic! Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, ea!</p>
-                        <Row className="align-items-center justify-content-around">
+                        <p style={{cursor: 'pointer'}} onClick={handleBackToShopButton} className=""><FontAwesomeIcon icon={faChevronLeft}/> Back to shop</p>
+                        <Text variant="xxLarge">{name}</Text>
+                        <p className="text-muted mt-3">{longDescription}</p>
+                        <Row className="align-items-center justify-content-around mt-3">
                             <Col>
-                                <Text variant="xxLarge">$ 120</Text>
+                                <Text variant="xxLarge">$ {price}</Text>
                             </Col>
                             <Col>
-                                <button className="rounded-pill">Buy</button>
+                                <div className="d-flex align-items-center justify-content-around border border-dark rounded-pill">
+                                    <p> - </p>
+                                    <p> 1 </p>
+                                    <p className="text-danger"> + </p>
+                                </div>
                             </Col>
                         </Row>
-                        
+                        <Button onClick={() => addToCart(selectedProduct)} className="rounded-pill mt-3 mb-3" variant="danger"><FontAwesomeIcon icon={faShoppingCart} /> Add</Button>
+                        <Row className="align-items-center pt-5">
+                            <Col>
+                                <img width={150} src={photo2Url} alt="product"/>
+                            </Col>
+                            <Col>
+                                <img width={150} src={photo3Url} alt="product"/>
+                            </Col>
+                            <Col>
+                                <FontAwesomeIcon icon={faChevronRight}/>
+                            </Col>
+                        </Row>
+            
                     </Col>
                     <Col>
-                        <img src={picture}  alt="food" />
+                        <div className="text-center mt-2">
+                            <img width={400}src={photo1Url}  alt="food" />
+                        </div>
                     </Col>
                 </Row>
             </Container>
@@ -31,4 +66,15 @@ const FoodDetails = (props) => {
     );
 };
 
-export default FoodDetails;
+const mapStateToProps = state => {
+    return {
+        cart: state.cart,
+        products : state.products
+    }
+}
+
+const mapDispatchToProps = {
+    addToCart : addToCart
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
