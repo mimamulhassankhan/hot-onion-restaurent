@@ -1,10 +1,9 @@
 import React from 'react';
+import AdminPortalNav from '../../Shared/AdminPortalNav/AdminPortalNav';
 
 const OwnerPortalIndex = () => {
     return (
-        <div>
-            
-        </div>
+        <AdminPortalNav role="restaurentOwner"></AdminPortalNav>
     );
 };
 

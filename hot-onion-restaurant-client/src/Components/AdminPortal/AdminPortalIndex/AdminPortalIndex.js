@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminPortalNav from '../AdminPortalNav/AdminPortalNav';
+import AdminPortalNav from '../../Shared/AdminPortalNav/AdminPortalNav';
 
 const AdminPortalIndex = () => {
     return (
         <>
-            <AdminPortalNav></AdminPortalNav>
+            <AdminPortalNav role="superAdmin"></AdminPortalNav>
         </>
     );
 };

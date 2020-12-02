@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './Components/Home/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import FoodDetails from './Components/HomePage/FoodDetails/FoodDetails';
 import NotFound from './Components/NotFound/NotFound';
@@ -39,9 +38,6 @@ function App({addRestaurant}) {
           <Switch>
             <Route exact path="/">
                 <HomePageIndex />
-            </Route>
-            <Route path="/home">
-                <Home />
             </Route>
             <PrivateRoute path="/checkout">
               <CheckOut />

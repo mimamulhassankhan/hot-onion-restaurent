@@ -18,10 +18,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { handleSignOut } from '../../TitleBar/signoutManager';
-import AddRestaurant from '../AddRestaurant/AddRestaurant';
-import LiveSell from '../LiveSell/LiveSell';
-import DailySellReport from '../DailySellReport/DailySellReport';
-import RestaurantList from '../RestaurantList/RestaurantList';
+import AddRestaurant from '../../AdminPortal/AddRestaurant/AddRestaurant';
+import LiveSell from '../../AdminPortal/LiveSell/LiveSell';
+import DailySellReport from '../../AdminPortal/DailySellReport/DailySellReport';
+import RestaurantList from '../../AdminPortal/RestaurantList/RestaurantList';
 
 const drawerWidth = 300;
 
@@ -47,16 +47,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DashboardNav = ({user}) => {
+const DashboardNav = ({role}) => {
     const classes = useStyles();
-    const {serviceId} = useParams() || {serviceId: -1};
-    //const {role} = user;
     
     const location = useLocation();
     const history = useHistory();
     let { from } = location.state || { from: { pathname: "/" } };
 
-    const [selectedOption, setSelectedOption] = useState('addRestaurant');
+    const [selectedOption, setSelectedOption] = useState(role === 'restaurentOwner' ? 'addFoodItem': 'addRestaurant');
 
     const signOut = (e) => {
         e.preventDefault();
@@ -87,7 +85,7 @@ const DashboardNav = ({user}) => {
                 </ListItem>
                 <Divider/>
                 {
-                    1 ?
+                    role === 'superAdmin' ?
                     <>
                     <ListItem button onClick={() => setSelectedOption('addRestaurant')}>
                         <ListItemIcon><FontAwesomeIcon icon={faLockOpen} /></ListItemIcon>
@@ -107,18 +105,18 @@ const DashboardNav = ({user}) => {
                     </ListItem>
                     </> :
                     <>
-                    <ListItem button>
+                    <ListItem button onClick={() => setSelectedOption('addFoodItem')}>
                         <ListItemIcon><FontAwesomeIcon icon={faShoppingCart} /></ListItemIcon>
-                        <ListItemText primary="Order" />
+                        <ListItemText primary="Add Food Item" />
                     </ListItem>
-                    <ListItem button>
+                    {/* <ListItem button>
                         <ListItemIcon><FontAwesomeIcon icon={faList} /></ListItemIcon>
                         <ListItemText primary="Service List" />
                     </ListItem>
                     <ListItem button>
                         <ListItemIcon><FontAwesomeIcon icon={faComment} /></ListItemIcon>
                         <ListItemText primary="Review" />
-                    </ListItem>
+                    </ListItem> */}
                     </>
                 }
             </List>

@@ -59,7 +59,6 @@ client.connect(err => {
   app.get('/restaurant/:r_Id', (req, res) => {
     restaurantCollections.find({_id: new ObjectID(req.params.r_Id)})
     .toArray((err, documents) => {
-        console.log(documents);
         res.send(documents[0]);
     })
 })
