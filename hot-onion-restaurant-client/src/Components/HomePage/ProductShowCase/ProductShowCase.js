@@ -10,7 +10,7 @@ const ProductShowCase = ({cart, products, selectedRestaurant}) => {
     return (
         <Container>
             <Row>
-                <Col className="text-center">
+                <Col >
                     <ItemsPivot products={filteredFoodItems}></ItemsPivot>
                     {
                         cart.length > 0 ? 

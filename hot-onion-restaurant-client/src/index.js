@@ -9,8 +9,8 @@ import { restaurantStore } from './Redux/Stores/RestaurantStore';
 ReactDOM.render(
   <Provider store={restaurantStore}>
     <React.StrictMode>
-    <App />
-  </React.StrictMode>
+      <App />
+    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );

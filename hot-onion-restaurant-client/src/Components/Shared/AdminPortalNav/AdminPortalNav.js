@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {  Image, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSignOutAlt, faList, faComment, faPlus, faLockOpen, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 // import OrderForm from '../../UserDashBoard/OrderForm/OrderForm';
 // import ServiceConsumed from '../../UserDashBoard/ServiceConsumed/ServiceConsumed';
 // import GiveReview from '../../UserDashBoard/GiveReview/GiveReview';
@@ -22,6 +22,7 @@ import AddRestaurant from '../../AdminPortal/AddRestaurant/AddRestaurant';
 import LiveSell from '../../AdminPortal/LiveSell/LiveSell';
 import DailySellReport from '../../AdminPortal/DailySellReport/DailySellReport';
 import RestaurantList from '../../AdminPortal/RestaurantList/RestaurantList';
+import './AdminPortalNav.css';
 
 const drawerWidth = 300;
 

@@ -1,5 +1,5 @@
 import { allProducts } from "../../FakeData";
-import { ADD_TO_CART, LOGIN_NEW_USER, REMOVE_FROM_CART, UPDATE_OWNER_LOGIN } from "../Actions/RestaurantActions";
+import { ADD_TO_CART, LOGIN_NEW_USER, REMOVE_FROM_CART, UPDATE_CURRENT_USER_LOCATION, UPDATE_OWNER_LOGIN } from "../Actions/RestaurantActions";
 import { ADD_RESTAURANT } from "../Actions/RestaurantActions";
 
 const initialState = {
@@ -7,7 +7,8 @@ const initialState = {
     cart : [],
     products : [...allProducts],
     restaurants: [],
-    ownerIsSingedIn: false
+    ownerIsSingedIn: false,
+    currentUserLocation: {lat: 23.7772, lng: 90.3994}
 }
 
 export const restaurantReducer = (state = initialState, actions) => {
@@ -40,6 +41,11 @@ export const restaurantReducer = (state = initialState, actions) => {
             return{
                 ...state,
                 ownerIsSingedIn: actions.loginState
+            }
+        case UPDATE_CURRENT_USER_LOCATION:
+            return{
+                ...state,
+                currentUserLocation: {lat: actions.lat, lng: actions.lng }
             }
         default:
             return state;

@@ -3,6 +3,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const LOGIN_NEW_USER = 'LOGIN_NEW_USER';
 export const ADD_RESTAURANT = 'ADD_RESTAURANT';
 export const UPDATE_OWNER_LOGIN = 'UPDATE_OWNER_LOGIN';
+export const UPDATE_CURRENT_USER_LOCATION = 'UPDATE_CURRENT_USER_LOCATION';
 
 export const addToCart = (product) => {
     return {type: ADD_TO_CART, product}
@@ -27,5 +28,13 @@ export const updateOwnerLogin = loginState => {
     return{
         type: UPDATE_OWNER_LOGIN,
         loginState
+    }
+}
+
+export const setCurrentUserLocation = (lat, lng) => {
+    return{
+        type: UPDATE_CURRENT_USER_LOCATION,
+        lat,
+        lng
     }
 }

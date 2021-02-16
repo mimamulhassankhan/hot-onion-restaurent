@@ -11,18 +11,58 @@ import OrderPlaced from './Components/OrderPlaced/OrderPlaced';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import TitleBar from './Components/TitleBar/TitleBar';
 import AdminPortalIndex from './Components/AdminPortal/AdminPortalIndex/AdminPortalIndex';
-import { addRestaurant } from './Redux/Actions/RestaurantActions';
+import { addRestaurant, setCurrentUserLocation } from './Redux/Actions/RestaurantActions';
 import { connect } from 'react-redux';
 import HomePageIndex from './Components/HomePage/HomePageIndex/HomePageIndex';
 import OwnerAuth from './Components/Shared/OwnerAuth/OwnerAuth';
 import OwnerPortalIndex from './Components/RestaurantOwnerPortal/OwnerPortalIndex/OwnerPortalIndex';
 import CustomLogin from './Components/Shared/CustomLogin/CustomLogin';
 
-function App({addRestaurant}) {
+function App({addRestaurant, setCurrentUserLocation}) {
+  
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+  }
+
+  const success = pos => {
+      const crd = pos?.coords;
+      const lat = crd?.latitude;
+      const lng = crd?.longitude;
+      setCurrentUserLocation(lat, lng)
+  }
+
+  const errors = err => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  const locationServices = () => {
+      if(navigator.geolocation){
+          navigator.permissions.query({name: "geolocation"})
+          .then(result => {
+              if(result.state === 'granted'){
+                  navigator.geolocation.getCurrentPosition(success, errors, options);
+              }
+              else if(result.state === 'prompt'){
+                  navigator.geolocation.getCurrentPosition(success, errors, options);
+              }
+              else if(result.state === 'denied'){
+
+              }
+          })
+      }
+      else{
+          alert('Sorry Not available');
+      }
+  }
+
+  useEffect(() => {
+    locationServices();
+  },[])
 
   useEffect(() => {
     const fetchRestaurantOpertaion = async () => {
-      await fetch('http://localhost:5000/getRestaurants')
+      await fetch('https://mighty-meadow-40482.herokuapp.com/getRestaurants')
       .then(res => res.json())
       .then(data =>{
         addRestaurant(data ? data : []);
@@ -79,7 +119,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addRestaurant: addRestaurant
+  addRestaurant: addRestaurant,
+  setCurrentUserLocation: setCurrentUserLocation
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

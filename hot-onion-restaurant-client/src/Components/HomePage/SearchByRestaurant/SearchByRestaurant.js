@@ -10,7 +10,7 @@ const SearchByRestaurant = ({restaurants, handleSearch}) => {
                     <Form.Label>Search by Restaurants</Form.Label>
                     <Form.Control as="select" defaultValue={0} onChange={(e) => handleSearch(e.target.value)}>
                         {
-                            restaurants.map(restaurant => <option value={restaurant._id} key={restaurant._id}>{restaurant.restaurantname}</option>)
+                            restaurants.map(restaurant => <option value={restaurant._id} key={restaurant._id}>{restaurant.restaurantName}</option>)
                         }
                     </Form.Control>
                 </Form.Group>

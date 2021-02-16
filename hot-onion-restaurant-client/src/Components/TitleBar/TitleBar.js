@@ -18,7 +18,7 @@ const TitleBar = ({cart, user, addLoggedinUser}) => {
       }
     return (
         <>
-            <Navbar sticky="top" className="bg-white container p-4 d-flex justify-content-between align-items-center" variant="light">
+            <Navbar className="bg-white container p-4 d-flex justify-content-between align-items-center" variant="light">
                 <Navbar.Brand>
                     <Link to={'/'}>
                         <img
