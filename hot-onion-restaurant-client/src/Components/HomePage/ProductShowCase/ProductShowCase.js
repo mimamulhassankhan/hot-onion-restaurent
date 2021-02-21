@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ItemsPivot from '../ItemsPivot/ItemsPivot';
 
-const ProductShowCase = ({cart, products, selectedRestaurant}) => {
+const ProductShowCase = ({cart, allFoods, selectedRestaurant}) => {
 
-    const filteredFoodItems = products.filter(item => item.restaurantId === selectedRestaurant);
+    const filteredFoodItems = allFoods.filter(item => item.restaurantId === selectedRestaurant);
     return (
         <Container>
             <Row>
                 <Col >
-                    <ItemsPivot products={filteredFoodItems}></ItemsPivot>
+                    <ItemsPivot foods={filteredFoodItems}></ItemsPivot>
                     {
                         cart.length > 0 ? 
-                        <Link to={'/checkout'}>
+                        <Link to={'/dashboard/customer'}>
                             <Button variant="outline-danger">Checkout your food</Button>
                         </Link> :
                         <Button variant="secondary" disabled>Checkout your food</Button>
@@ -28,7 +28,7 @@ const ProductShowCase = ({cart, products, selectedRestaurant}) => {
 const mapStateToProps = state => {
     return {
         cart: state.cart,
-        products: state.products
+        allFoods: state.allFoods
     }
 }
 

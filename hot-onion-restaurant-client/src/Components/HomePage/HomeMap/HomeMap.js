@@ -20,18 +20,20 @@ const HomeMap = ({currentUserLocation, restaurants, selectedRestaurant, setSelec
 
     return (
       <>
-        <div className="my-3" style={{height: '500px'}}>
-           <ReactBingmaps
-            bingmapKey="AqYIoY4P882HDAul0j2WfAhfzCeBsePaBB2D85v7o6W75O7FWKYQAtIMwmfQAB6B"
-            center = {center}
-            zoom={15}
-            infoboxesWithPushPins = {optimizedRestaurants}
-            >
-            </ReactBingmaps> 
-        </div>
         <Container>
-          <h3>Selected Restaurant: {selectedRestaurant}</h3>
-          <hr style={{border: '3px solid ##007ACC'}}/>
+          <div className="my-3" style={{height: '400px'}}>
+            <ReactBingmaps
+              bingmapKey="AqYIoY4P882HDAul0j2WfAhfzCeBsePaBB2D85v7o6W75O7FWKYQAtIMwmfQAB6B"
+              center = {center}
+              zoom={12}
+              infoboxesWithPushPins = {optimizedRestaurants}
+              >
+              </ReactBingmaps> 
+          </div>
+          <>
+            <h3>Selected Restaurant: {selectedRestaurant}</h3>
+            <hr style={{border: '3px solid ##007ACC'}}/>
+          </>
         </Container>
       </>
     );

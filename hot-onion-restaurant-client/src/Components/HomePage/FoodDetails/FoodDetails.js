@@ -7,11 +7,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addToCart } from '../../../Redux/Actions/RestaurantActions';
 
-const FoodDetails = ({cart, products, addToCart}) => {
+const FoodDetails = ({cart, allFoods, addToCart}) => {
     const {itemId} = useParams();
     const history = useHistory();
-    const [selectedProduct] = products.filter(pd => pd.id.toString() === itemId.toString());
-    const { name, price, photo1Url, photo2Url, photo3Url, longDescription} = selectedProduct;
+    const [selectedProduct] = allFoods.filter(pd => pd._id.toString() === itemId.toString());
+    console.log(allFoods, itemId);
+    const { foodName, foodPrice, foodImage1, foodLongDescription} = selectedProduct;
 
     //local state
     const [productQuantity, setProductQuantity] = useState(1);
@@ -39,11 +40,11 @@ const FoodDetails = ({cart, products, addToCart}) => {
                 <Row>
                     <Col>
                         <p style={{cursor: 'pointer'}} onClick={handleBackToShopButton} className=""><FontAwesomeIcon icon={faChevronLeft}/> Back to shop</p>
-                        <Text variant="xxLarge">{name}</Text>
-                        <p className="text-muted mt-3">{longDescription}</p>
+                        <Text variant="xxLarge">{foodName}</Text>
+                        <p className="text-muted mt-3">{foodLongDescription}</p>
                         <Row className="align-items-center mt-3">
                             <Col md={3}>
-                                <Text variant="xxLarge">$ {price}</Text>
+                                <Text variant="xxLarge">$ {foodPrice}</Text>
                             </Col>
                             <Col md={3}>
                                 <div className="d-flex align-items-center justify-content-around border rounded-pill">
@@ -56,10 +57,10 @@ const FoodDetails = ({cart, products, addToCart}) => {
                         <Button onClick={handleAddProductToCart} className="rounded-pill mt-3 mb-3" variant="danger"><FontAwesomeIcon icon={faShoppingCart} /> Add</Button>
                         <Row className="align-items-center pt-5">
                             <Col>
-                                <img width={150} src={photo2Url} alt="product"/>
+                                <img width={150} src="/Images/Breakfast/breakfast2.png" alt="product"/>
                             </Col>
                             <Col>
-                                <img width={150} src={photo3Url} alt="product"/>
+                                <img width={150} src="/Images/Breakfast/breakfast2.png" alt="product"/>
                             </Col>
                             <Col>
                                 <FontAwesomeIcon icon={faChevronRight}/>
@@ -69,7 +70,7 @@ const FoodDetails = ({cart, products, addToCart}) => {
                     </Col>
                     <Col>
                         <div className="text-center mt-2">
-                            <img width={400}src={photo1Url}  alt="food" />
+                            <img width={400}src={foodImage1}  alt="food" />
                         </div>
                     </Col>
                 </Row>
@@ -81,7 +82,7 @@ const FoodDetails = ({cart, products, addToCart}) => {
 const mapStateToProps = state => {
     return {
         cart: state.cart,
-        products : state.products
+        allFoods : state.allFoods
     }
 }
 

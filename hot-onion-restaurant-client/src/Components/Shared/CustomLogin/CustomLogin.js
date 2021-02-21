@@ -13,15 +13,12 @@ const CustomLogin = ({updateOwnerLogin}) => {
     let { from } = location.state || { from: { pathname: "/" } };
 
     const onSubmit = data => {
-        fetch(`https://mighty-meadow-40482.herokuapp.com/restaurant/${data.restaurantId}`)
+        fetch(`http://localhost:5000/restaurant/${data.restaurantId}`)
         .then(res => res.json())
         .then(doc => {
-            console.log(doc);
             if(doc){
-                // const addNewRestaurant = [doc, ...restaurants];
-                // addRestaurant(addNewRestaurant);
-                updateOwnerLogin(true);
-                reset();
+                updateOwnerLogin(doc);
+                reset({});
                 history.replace(from);
             }
         })

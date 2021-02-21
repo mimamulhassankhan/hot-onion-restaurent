@@ -6,7 +6,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { addLoggedinUser } from '../../Redux/Actions/RestaurantActions';
 import { defaulftLoggingFramework, signInWithEmailAndPassword } from './loginManager';
 
-const Login = ({user, addLoggedinUser}) => {
+const Login = ({user, addLoggedinUser, allUsers}) => {
     //login config
     defaulftLoggingFramework();
 
@@ -37,19 +37,26 @@ const Login = ({user, addLoggedinUser}) => {
         }
         event.preventDefault(); 
       }
+    
+    const setUserDetailsToRedux = () => {
+        const [filteredUser] = allUsers.filter(user => user.email.toLowerCase() === localUser.email.toLowerCase());
+        addLoggedinUser(filteredUser);
+    }
+
 
     const handleSubmit = event => {
         if(localUser.email && localUser.password) {
             signInWithEmailAndPassword(localUser.email, localUser.password)
             .then(res => {
+            setUserDetailsToRedux();
             setLocalUser(res);
-            addLoggedinUser(res);
             history.replace(from);
             }).catch(res => console.log(res));
         }
-        
         event.preventDefault();
     }
+
+    
     return (
         <div>
             <Form.Group onSubmit={handleSubmit} className="w-25 text-center mx-auto">
@@ -70,7 +77,8 @@ const Login = ({user, addLoggedinUser}) => {
 
 const mapStateToProps = state => {
     return {
-        user : state.user
+        user : state.user,
+        allUsers: state.allUsers
     }
 }
 

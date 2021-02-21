@@ -1,14 +1,16 @@
-import { allProducts } from "../../FakeData";
-import { ADD_TO_CART, LOGIN_NEW_USER, REMOVE_FROM_CART, UPDATE_CURRENT_USER_LOCATION, UPDATE_OWNER_LOGIN } from "../Actions/RestaurantActions";
+import { ADD_ALL_FOODS, ADD_ALL_ORDERS, ADD_ALL_SUPPLIERS, ADD_ALL_USERS, ADD_TO_CART, LOGIN_NEW_USER, REMOVE_FROM_CART, UPDATE_CURRENT_USER_LOCATION, UPDATE_OWNER_LOGIN } from "../Actions/RestaurantActions";
 import { ADD_RESTAURANT } from "../Actions/RestaurantActions";
 
 const initialState = {
     user: [],
     cart : [],
-    products : [...allProducts],
+    allFoods : [],
     restaurants: [],
-    ownerIsSingedIn: false,
-    currentUserLocation: {lat: 23.7772, lng: 90.3994}
+    restaurantOwnerInfo: {},
+    currentUserLocation: {lat: 23.7772, lng: 90.3994},
+    allUsers: [],
+    allSuppliers: [],
+    allOrders: []
 }
 
 export const restaurantReducer = (state = initialState, actions) => {
@@ -18,8 +20,6 @@ export const restaurantReducer = (state = initialState, actions) => {
                 ...state,
                 cart : funcToAddCart(state.cart, actions.product)
             }
-            
-            
         case REMOVE_FROM_CART:
             const remaingFoods = state.cart.filter(food => food.id !== actions.id);
             return {
@@ -40,12 +40,32 @@ export const restaurantReducer = (state = initialState, actions) => {
         case UPDATE_OWNER_LOGIN:
             return{
                 ...state,
-                ownerIsSingedIn: actions.loginState
+                restaurantOwnerInfo: actions.ownerInfo
             }
         case UPDATE_CURRENT_USER_LOCATION:
             return{
                 ...state,
                 currentUserLocation: {lat: actions.lat, lng: actions.lng }
+            }
+        case ADD_ALL_FOODS:
+            return{
+                ...state,
+                allFoods: actions.foods
+            }
+        case ADD_ALL_USERS:
+            return{
+                ...state,
+                allUsers: actions.users
+            }
+        case ADD_ALL_SUPPLIERS:
+            return{
+                ...state,
+                allSuppliers: actions.suppliers
+            }
+        case ADD_ALL_ORDERS:
+            return{
+                ...state,
+                allOrders: actions.orders
             }
         default:
             return state;
@@ -53,10 +73,10 @@ export const restaurantReducer = (state = initialState, actions) => {
 }
 
 const funcToAddCart = (cartItems, cartItemToAdd) =>{
-    const existingCartItem = cartItems.find(item => item.id === cartItemToAdd.id);
+    const existingCartItem = cartItems.find(item => item._id === cartItemToAdd._id);
     if (existingCartItem) {
         const dfdf = cartItems.map(item =>
-        item.id === cartItemToAdd.id
+        item._id === cartItemToAdd._id
             ? { ...cartItemToAdd, quantity: item.quantity + cartItemToAdd.quantity }
             : item
         );

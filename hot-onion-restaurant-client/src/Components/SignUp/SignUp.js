@@ -8,7 +8,6 @@ import './SignUp.css';
 import { createUserWithEmailAndPassword } from './signupManager';
 
 const SignUp = ({user, addLoggedinUser}) => {
-    console.log(user);
     //call login framework
     defaulftLoggingFramework();
 
@@ -46,13 +45,27 @@ const SignUp = ({user, addLoggedinUser}) => {
         e.preventDefault(); 
       }
 
+    const createUserToDb = () => {
+        localUser.userRole = 0;
+        localUser.userShippingAddress = { district:'', roadNo: '', flatNo: '', businessName: ''};
+
+        fetch('http://localhost:5000/writeSingleUser',{
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(localUser)
+        })
+        .then(res => res.json())
+        .then(data => {
+            addLoggedinUser(data);
+        });
+    }
+
     const handleSubmit = event => {
-        console.log( localUser.password);
         if(localUser.email && (localUser.password === localUser.confirmPassword)){
             createUserWithEmailAndPassword(localUser.name, localUser.email, localUser.password)
             .then(res => {
               setLocalUser(res);
-              addLoggedinUser(res);
+              createUserToDb();
               history.replace(from);
             }).catch(res => console.log(res));
           }

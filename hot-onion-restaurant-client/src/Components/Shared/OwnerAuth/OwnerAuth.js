@@ -2,13 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-const OwnerAuth = ({ownerIsSingedIn, children, ...rest}) => {
+const OwnerAuth = ({restaurantOwnerInfo, children, ...rest}) => {
+    console.log(restaurantOwnerInfo);
     return (
         <Route
             {...rest}
             render={({ location }) =>
-            ownerIsSingedIn ? (
-                children
+            restaurantOwnerInfo?._id ? 
+                (
+                    children
                 ) : (
                 <Redirect
                     to={{
@@ -24,7 +26,7 @@ const OwnerAuth = ({ownerIsSingedIn, children, ...rest}) => {
 
 const mapStateToProps = state => {
     return {
-        ownerIsSingedIn: state.ownerIsSingedIn
+        restaurantOwnerInfo: state.restaurantOwnerInfo
     }
 }
 export default connect(mapStateToProps)(OwnerAuth);

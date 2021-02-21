@@ -19,10 +19,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { handleSignOut } from '../../TitleBar/signoutManager';
 import AddRestaurant from '../../AdminPortal/AddRestaurant/AddRestaurant';
-import LiveSell from '../../AdminPortal/LiveSell/LiveSell';
 import DailySellReport from '../../AdminPortal/DailySellReport/DailySellReport';
 import RestaurantList from '../../AdminPortal/RestaurantList/RestaurantList';
 import './AdminPortalNav.css';
+import AddFood from '../../RestaurantOwnerPortal/AddFood/AddFood';
+import AddDeliveryPerson from '../../AdminPortal/AddDeliveryPerson/AddDeliveryPerson';
 
 const drawerWidth = 300;
 
@@ -44,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: 10,
-    backgroundColor: '#e5e5e5',
   },
 }));
 
@@ -92,9 +92,9 @@ const DashboardNav = ({role}) => {
                         <ListItemIcon><FontAwesomeIcon icon={faLockOpen} /></ListItemIcon>
                         <ListItemText primary="Add Restaurant" />
                     </ListItem>
-                    <ListItem button onClick={() => setSelectedOption('liveSell')}>
+                    <ListItem button onClick={() => setSelectedOption('suppliers')}>
                         <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
-                        <ListItemText primary="Live Sell" />
+                        <ListItemText primary="Delivery Person" />
                     </ListItem>
                     <ListItem button onClick={() => setSelectedOption('dailySellReport')}>
                         <ListItemIcon><FontAwesomeIcon icon={faUserPlus} /></ListItemIcon>
@@ -134,7 +134,7 @@ const DashboardNav = ({role}) => {
                 selectedOption === 'addRestaurant' && <AddRestaurant></AddRestaurant>
             }
             {
-                selectedOption === 'liveSell'&& <LiveSell></LiveSell>
+                selectedOption === 'suppliers'&& <AddDeliveryPerson></AddDeliveryPerson>
             }
             {
                 selectedOption === 'dailySellReport'&& <DailySellReport></DailySellReport>
@@ -142,10 +142,10 @@ const DashboardNav = ({role}) => {
             {
                 selectedOption === 'restaurantList'&& <RestaurantList></RestaurantList>
             }
-            {/* {
-                selectedOption === 'addservice'&& <AddService></AddService>
-            }
             {
+                selectedOption === 'addFoodItem'&& <AddFood></AddFood>
+            }
+            {/* {
                 selectedOption === 'makeadmin'&& <MakeAdmin></MakeAdmin>
             } */}
         </main>
