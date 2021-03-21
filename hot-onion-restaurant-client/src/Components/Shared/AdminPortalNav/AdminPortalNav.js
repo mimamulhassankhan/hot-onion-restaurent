@@ -24,6 +24,8 @@ import RestaurantList from '../../AdminPortal/RestaurantList/RestaurantList';
 import './AdminPortalNav.css';
 import AddFood from '../../RestaurantOwnerPortal/AddFood/AddFood';
 import AddDeliveryPerson from '../../AdminPortal/AddDeliveryPerson/AddDeliveryPerson';
+import RestaurantOrders from '../../RestaurantOwnerPortal/RestaurantOrders/RestaurantOrders';
+import AllFoodItems from '../../RestaurantOwnerPortal/AllFoodItems/AllFoodItems';
 
 const drawerWidth = 300;
 
@@ -110,6 +112,14 @@ const DashboardNav = ({role}) => {
                         <ListItemIcon><FontAwesomeIcon icon={faShoppingCart} /></ListItemIcon>
                         <ListItemText primary="Add Food Item" />
                     </ListItem>
+                    <ListItem button onClick={() => setSelectedOption('restaurantAllOrders')}>
+                        <ListItemIcon><FontAwesomeIcon icon={faShoppingCart} /></ListItemIcon>
+                        <ListItemText primary="My Orders" />
+                    </ListItem>
+                    <ListItem button onClick={() => setSelectedOption('restaurantFoods')}>
+                        <ListItemIcon><FontAwesomeIcon icon={faShoppingCart} /></ListItemIcon>
+                        <ListItemText primary="List Foods" />
+                    </ListItem>
                     {/* <ListItem button>
                         <ListItemIcon><FontAwesomeIcon icon={faList} /></ListItemIcon>
                         <ListItemText primary="Service List" />
@@ -144,6 +154,12 @@ const DashboardNav = ({role}) => {
             }
             {
                 selectedOption === 'addFoodItem'&& <AddFood></AddFood>
+            }
+            {
+                selectedOption === 'restaurantAllOrders'&& <RestaurantOrders></RestaurantOrders>
+            }
+            {
+                selectedOption === 'restaurantFoods'&& <AllFoodItems></AllFoodItems>
             }
             {/* {
                 selectedOption === 'makeadmin'&& <MakeAdmin></MakeAdmin>

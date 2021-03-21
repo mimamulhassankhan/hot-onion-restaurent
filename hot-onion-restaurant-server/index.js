@@ -170,7 +170,24 @@ app.post('/writeSingleUser', (req, res) => {
     .then(result => {
       res.send(result.modifiedCount > 0);
     });
-  })
+  });
+
+  app.patch('/updateOrderInfo/:o_Id', (req, res) => {
+    orderCollection.updateOne({_id : ObjectID(req.params.o_Id)},
+    {
+        $set:{ orderStatus: req.body.orderStatus}
+    })
+    .then(result => {
+      res.send(result.modifiedCount > 0);
+    });
+  });
+
+  app.delete('/deleteFood/:f_Id', (req, res) => {
+    foodCollection.deleteOne({_id : ObjectID(req.params.f_Id)})
+    .then(result =>{
+      res.send(result.deletedCount > 0);
+    })
+  });
 
 });
 

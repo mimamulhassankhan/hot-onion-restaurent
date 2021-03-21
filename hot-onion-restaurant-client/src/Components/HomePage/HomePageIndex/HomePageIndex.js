@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import Header from '../../Header/Header';
@@ -6,8 +6,11 @@ import HomeMap from '../HomeMap/HomeMap';
 import ProductShowCase from '../ProductShowCase/ProductShowCase';
 
 const HomePageIndex = ({restaurants}) => {
-    let [firstRestaurant] = restaurants;
-    const [selectedRestaurant, setSelectedRestaurant] = useState(firstRestaurant?._id);
+    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    useEffect(() => {
+        let [firstRestaurant] = restaurants;
+        setSelectedRestaurant(firstRestaurant?._id)
+    },[restaurants])
     return (
         <>
             <Header></Header>
