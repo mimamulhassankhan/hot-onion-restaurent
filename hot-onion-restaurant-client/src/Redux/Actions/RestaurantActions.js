@@ -13,8 +13,8 @@ export const addToCart = (product) => {
     return {type: ADD_TO_CART, product}
 }
 
-export const removeFromCart = id => {
-    return {type: REMOVE_FROM_CART, id}
+export const removeFromCart = foodId => {
+    return {type: REMOVE_FROM_CART, foodId}
 }
 
 export const addLoggedinUser = user => {

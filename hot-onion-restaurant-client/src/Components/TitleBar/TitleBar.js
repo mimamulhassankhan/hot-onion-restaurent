@@ -47,8 +47,8 @@ const TitleBar = ({cart, user, addLoggedinUser}) => {
                         </div>   
                         : 
                         <div className="d-flex align-items-center w-50 justify-content-around">
-                            <Link to={'/login'}>
-                                <h5>Login</h5>
+                            <Link to={'/dashboard/myorders'}>
+                                <h5>My Account</h5>
                             </Link>
                             <NavDropdown title={`Cart (${cart.length})`} show={showMiniCart} onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
                                 <MiniCart></MiniCart>

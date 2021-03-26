@@ -21,10 +21,10 @@ export const restaurantReducer = (state = initialState, actions) => {
                 cart : funcToAddCart(state.cart, actions.product)
             }
         case REMOVE_FROM_CART:
-            const remaingFoods = state.cart.filter(food => food.id !== actions.id);
+            const remainingFoods = state.cart.filter(food => food._id !== actions.foodId);
             return {
                 ...state,
-                cart : remaingFoods
+                cart : remainingFoods
             }
         case LOGIN_NEW_USER:
             const newUser = actions.user;

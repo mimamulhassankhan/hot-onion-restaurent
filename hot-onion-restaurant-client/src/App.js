@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import FoodDetails from './Components/HomePage/FoodDetails/FoodDetails';
 import NotFound from './Components/NotFound/NotFound';
 import SignUp from './Components/SignUp/SignUp';
@@ -166,4 +166,5 @@ const mapDispatchToProps = {
   setAllOrders: setAllOrders
 }
 
+ 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

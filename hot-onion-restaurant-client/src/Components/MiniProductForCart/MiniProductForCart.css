@@ -1,0 +1,12 @@
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: -30px;
+    font-size: 36px;
+    margin-right: 50px;
+}
+
+.closebtn:hover {
+    color: black;
+    cursor: pointer;
+}

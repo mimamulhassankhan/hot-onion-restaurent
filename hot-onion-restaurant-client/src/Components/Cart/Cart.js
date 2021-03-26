@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addToCart, setAllOrders } from '../../Redux/Actions/RestaurantActions';
 import MiniProductForCart from '../MiniProductForCart/MiniProductForCart';
+import './Cart.css';
 
 const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledState, allSuppliers}) => {
     const history = useHistory();
@@ -39,8 +40,11 @@ const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledSta
     }
     return (
         <>
-            <h6>Arriving in 7-10 min</h6>
-            <h6>107 Road No 8</h6>
+            <h6>Payment Method</h6>
+            <label className="container_div">Cash On Delivary
+                <input type="radio" checked="checked" name="radio" />
+                <span className="checkmark_div"></span>
+            </label>
             {
                 cart.map(pd => <MiniProductForCart toCart={addToCart} data={pd} key={pd._id}></MiniProductForCart>)
             }
