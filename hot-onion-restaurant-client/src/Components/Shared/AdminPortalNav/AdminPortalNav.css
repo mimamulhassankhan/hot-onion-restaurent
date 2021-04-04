@@ -1,0 +1,7 @@
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], textarea{
+    margin: 7px 0px;
+    border: none;
+    border-bottom: 2px solid #0090F2;
+    background-color: #F2F3F5;
+    border-radius: 0px;
+  }
