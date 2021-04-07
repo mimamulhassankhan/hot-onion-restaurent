@@ -64,7 +64,7 @@ function App({addRestaurant, setCurrentUserLocation, setAllFoods, setAllUsers, s
 
   useEffect(() => {
     const fetchRestaurantOpertaion = async () => {
-      await fetch('https://mighty-meadow-40482.herokuapp.com/getRestaurants')
+      await fetch('http://localhost:5000/getRestaurants')
       .then(res => res.json())
       .then(data =>{
         addRestaurant(data ? data : []);

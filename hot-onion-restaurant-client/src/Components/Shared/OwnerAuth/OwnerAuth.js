@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 const OwnerAuth = ({restaurantOwnerInfo, children, ...rest}) => {
-    console.log(restaurantOwnerInfo);
     return (
         <Route
             {...rest}

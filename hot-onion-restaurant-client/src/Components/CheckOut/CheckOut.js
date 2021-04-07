@@ -9,7 +9,7 @@ const CheckOut = ({user, addLoggedinUser}) => {
     const { register, handleSubmit, errors, reset } = useForm();
     const [buttonDisabledState, setButtonDisabledState] = useState(true);
 
-    let {district, businessName, flatNo, roadNo} = user?.userShippingAddress;
+    let {district, businessName, flatNo, roadNo, phoneNo} = user?.userShippingAddress;
     const onSubmit = userShippingAddress => {
         setButtonDisabledState(false);
         let updatedUserShippingAddress = userShippingAddress;
@@ -49,6 +49,10 @@ const CheckOut = ({user, addLoggedinUser}) => {
                             <div className="form-group">
                                 <input type="text" className="form-control" ref={register({ required: true })} name="flatNo" defaultValue={flatNo || ''} placeholder="Flat or Suite"/>
                                 {errors.flatNo && <span className="text-danger">This field is required</span>}
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control" ref={register({ required: true })} name="phoneNo" defaultValue={phoneNo || ''} placeholder="Phone Number"/>
+                                {errors.phoneNo && <span className="text-danger">This field is required</span>}
                             </div>
                             <div className="form-group">
                                 <input type="text" className="form-control" ref={register()} name="businessName" defaultValue={businessName || ''} placeholder="Business Name"/>

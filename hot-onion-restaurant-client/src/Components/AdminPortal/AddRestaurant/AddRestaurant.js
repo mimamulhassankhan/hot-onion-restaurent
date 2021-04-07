@@ -8,7 +8,7 @@ const AddRestaurant = ({restaurants, addRestaurant}) => {
 
     const onSubmit = data => {
 
-        fetch('https://mighty-meadow-40482.herokuapp.com/addRestaurant', {
+        fetch('http://localhost:5000/addRestaurant', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(data)

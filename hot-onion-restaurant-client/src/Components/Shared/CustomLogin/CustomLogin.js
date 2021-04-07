@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { updateOwnerLogin } from '../../../Redux/Actions/RestaurantActions';
+import { defaulftLoggingFramework } from '../../Login/loginManager';
 
 const CustomLogin = ({updateOwnerLogin}) => {
+    defaulftLoggingFramework();
     const { register, handleSubmit, errors, reset } = useForm();
 
     const history = useHistory();
