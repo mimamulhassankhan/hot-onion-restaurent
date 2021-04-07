@@ -18,7 +18,11 @@ import OwnerAuth from './Components/Shared/OwnerAuth/OwnerAuth';
 import OwnerPortalIndex from './Components/RestaurantOwnerPortal/OwnerPortalIndex/OwnerPortalIndex';
 import CustomLogin from './Components/Shared/CustomLogin/CustomLogin';
 import 'rsuite/dist/styles/rsuite-default.css';
+import{ init } from 'emailjs-com';
 import CustomerDashboardRoot from './Components/CustomerDashboard/CustomerDashboardRoot/CustomerDashboardRoot';
+require('dotenv').config();
+
+init(process.env.EMAIL_USER_ID);
 
 function App({addRestaurant, setCurrentUserLocation, setAllFoods, setAllUsers, setAllSuppliers, setAllOrders}) {
   
@@ -60,7 +64,7 @@ function App({addRestaurant, setCurrentUserLocation, setAllFoods, setAllUsers, s
 
   useEffect(() => {
     locationServices();
-  },[])
+  },[locationServices])
 
   useEffect(() => {
     const fetchRestaurantOpertaion = async () => {

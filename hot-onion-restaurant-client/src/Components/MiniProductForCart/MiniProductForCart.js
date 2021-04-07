@@ -15,7 +15,7 @@ const MiniProductForCart = ({toCart, data, from, removeFromCart}) => {
             {
                 from === 'minicart'?
                 <>
-                    <Card className="rounded bg-white p-2" horizontal style={{width: '100%', display: 'inline-block'}}>
+                    <Card className="rounded bg-white p-2" horizontal>
                         <Card.Item >
                             <Image width={90} className="rounded" src={foodImage1} alt="Placeholder image." />
                         </Card.Item>
