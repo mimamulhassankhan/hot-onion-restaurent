@@ -17,7 +17,13 @@
 .env.development.local
 .env.test.local
 .env.production.local
+./firebase.json
+.firebaserc
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#login configuration
+./src/Components/Login/firebase.config.js

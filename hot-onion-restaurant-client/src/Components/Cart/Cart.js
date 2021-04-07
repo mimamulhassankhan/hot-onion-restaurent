@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 import { addToCart, setAllOrders } from '../../Redux/Actions/RestaurantActions';
 import MiniProductForCart from '../MiniProductForCart/MiniProductForCart';
+import emailjs from 'emailjs-com';
 import './Cart.css';
+require('dotenv').config()
 
 const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledState, allSuppliers}) => {
     const history = useHistory();
@@ -13,10 +15,12 @@ const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledSta
     const delivary = subTotal * .06;
     const total = subTotal + tax + delivary;
 
+
     const handlePlaceOrder = () =>{
         const [selectSupplier] = allSuppliers.filter(supplier => supplier.deliveryPersonActiveStatus === 'active');
         const orderDetails = {
             userId: user._id,
+            userMail: user.email,
             cartDetails: cart,
             supplierDetails: selectSupplier,
             paymentStatus: 'pending',
@@ -33,7 +37,13 @@ const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledSta
         .then(returnedData => {
             const addNewOrder = [returnedData, ...allOrders];
             setAllOrders(addNewOrder);
-            history.push(`/dashboard/myorders`);
+            emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID, orderDetails, process.env.REACT_APP_EMAIL_USER_ID)
+            .then(responseResult => {
+                history.push(`/dashboard/myorders`);
+            })
+            .then(error => {
+                console.log('error :', error);
+            });
         })
         .catch(err => console.log(err));
 
