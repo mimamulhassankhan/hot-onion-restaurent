@@ -5,28 +5,38 @@ import { Button, Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setAllFoods } from '../../../Redux/Actions/RestaurantActions';
 import MainContentLayout from '../../MainContentLayout/MainContentLayout';
+import UpdateFood from '../UpdateFood/UpdateFood';
 
 const AllFoodItems = ({allFoods, restaurantOwnerInfo}) => {
     const [sellerProducts, setSellerProducts] = useState([]);
+    const [selectedFood, setSelectedFood] = useState({});
+    const [updateModalShow, setUpdateModalShow] = useState(false);
+
+    const handleUpdateClose = () => setUpdateModalShow(false);
+    const handleUpdateShow = () => setUpdateModalShow(true);
+
+    useEffect(() =>{
+        const sellerProd = allFoods.filter(food => food?.restaurantId === restaurantOwnerInfo?._id);
+        setSellerProducts(sellerProd);
+    }, [allFoods, restaurantOwnerInfo]);
+
     const handleDeleteButtonClick = (FoodId) => {
         fetch(`http://localhost:5000/deleteFood/${FoodId}`,{
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Content-Type' : 'application/json'}
         })
         .then(res => res.json())
         .then(returnedData => {
             if(returnedData){
-                const filteredFoods = allFoods.filter(fd => fd._id !== FoodId);
+                const filteredFoods = allFoods.filter(fd => {
+                    return fd._id !== FoodId;
+                });
                 console.log(filteredFoods);
                 setAllFoods(filteredFoods);
             }
         })
         .catch(err => console.log(err));
     };
-
-    useEffect(() =>{
-        const sellerProd = allFoods.filter(food => food?.restaurantId === restaurantOwnerInfo?._id);
-        setSellerProducts(sellerProd);
-    }, [allFoods, restaurantOwnerInfo]);
     
     return (
         <>
@@ -44,7 +54,7 @@ const AllFoodItems = ({allFoods, restaurantOwnerInfo}) => {
                 </thead>
                 <tbody>
                     {
-                        sellerProducts.map((food, idx) => 
+                        sellerProducts && sellerProducts.map((food, idx) => 
                         <tr key={food._id} className="align-center">
                             <td>{idx+1}</td>
                             <td>{food._id}</td>
@@ -52,8 +62,8 @@ const AllFoodItems = ({allFoods, restaurantOwnerInfo}) => {
                             <td>{food.foodPrice}</td>
                             <td>{food.foodCategory}</td>
                             <td className="d-flex justify-content-around" >
-                                <Button variant="danger"><FontAwesomeIcon icon={faTrashAlt} onClick={() => handleDeleteButtonClick(food._id)}/></Button>
-                                <Button variant="warning"><FontAwesomeIcon icon={faPen} /></Button>
+                                <Button variant="danger" onClick={() => handleDeleteButtonClick(food._id)}><FontAwesomeIcon icon={faTrashAlt}/></Button>
+                                <Button variant="warning" onClick={() => {setSelectedFood(food); handleUpdateShow()}}><FontAwesomeIcon icon={faPen}/></Button>
                             </td>
                         </tr>)
                     }
@@ -61,6 +71,7 @@ const AllFoodItems = ({allFoods, restaurantOwnerInfo}) => {
                 </tbody>
             </Table>
         </MainContentLayout>
+        <UpdateFood foodDetails={selectedFood} show={updateModalShow} handleClose={handleUpdateClose}></UpdateFood>
         </>
     );
 };

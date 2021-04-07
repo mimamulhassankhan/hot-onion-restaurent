@@ -98,14 +98,14 @@ const DashboardNav = ({role}) => {
                         <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
                         <ListItemText primary="Delivery Person" />
                     </ListItem>
-                    <ListItem button onClick={() => setSelectedOption('dailySellReport')}>
+                    {/* <ListItem button onClick={() => setSelectedOption('dailySellReport')}>
                         <ListItemIcon><FontAwesomeIcon icon={faUserPlus} /></ListItemIcon>
                         <ListItemText primary="Daily Sell" />
                     </ListItem>
                     <ListItem button onClick={() => setSelectedOption('restaurantList')}>
                         <ListItemIcon><FontAwesomeIcon icon={faUserPlus} /></ListItemIcon>
                         <ListItemText primary="Restaurant List" />
-                    </ListItem>
+                    </ListItem> */}
                     </> :
                     <>
                     <ListItem button onClick={() => setSelectedOption('addFoodItem')}>

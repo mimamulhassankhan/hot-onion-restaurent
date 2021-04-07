@@ -31,14 +31,14 @@ const upload = multer({
   storage: storage
 });
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.tviz5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.CLUSTER_URL}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 client.connect(err => {
-  const restaurantCollections = client.db("hot-onion-restaurant-ltd").collection("restaurants");
-  const orderCollection = client.db("hot-onion-restaurant-ltd").collection("orders");
-  const foodCollection = client.db("hot-onion-restaurant-ltd").collection("foodItems");
-  const userCollection = client.db("hot-onion-restaurant-ltd").collection("allUsers");
-  const supplierCollection = client.db("hot-onion-restaurant-ltd").collection("suppliers");
+  const restaurantCollections = client.db(`${process.env.DB_NAME}`).collection("restaurants");
+  const orderCollection = client.db(`${process.env.DB_NAME}`).collection("orders");
+  const foodCollection = client.db(`${process.env.DB_NAME}`).collection("foodItems");
+  const userCollection = client.db(`${process.env.DB_NAME}`).collection("allUsers");
+  const supplierCollection = client.db(`${process.env.DB_NAME}`).collection("suppliers");
 
   app.post('/addRestaurant', (req, res) => {
     const restaurantInfo = req.body;
@@ -184,6 +184,23 @@ app.post('/writeSingleUser', (req, res) => {
 
   app.delete('/deleteFood/:f_Id', (req, res) => {
     foodCollection.deleteOne({_id : ObjectID(req.params.f_Id)})
+    .then(result =>{
+      res.send(result.deletedCount > 0);
+    })
+  });
+
+  app.patch('/updateFoodInfo/:f_Id', (req, res) => {
+    foodCollection.updateOne({_id : ObjectID(req.params.f_Id)},
+    {
+        $set:{ foodName: req.body.foodName, foodShortDescription: req.body.foodShortDescription, foodLongDescription: req.body.foodLongDescription, foodPrice: req.body.foodPrice}
+    })
+    .then(result => {
+      res.send(result.modifiedCount > 0);
+    });
+  });
+
+  app.delete('/deleteOrder/:o_Id', (req, res) => {
+    orderCollection.deleteOne({_id : ObjectID(req.params.o_Id)})
     .then(result =>{
       res.send(result.deletedCount > 0);
     })

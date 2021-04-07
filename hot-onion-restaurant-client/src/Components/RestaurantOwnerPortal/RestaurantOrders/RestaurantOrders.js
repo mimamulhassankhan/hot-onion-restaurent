@@ -1,4 +1,4 @@
-import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Badge, Button, Table } from 'react-bootstrap';
@@ -44,6 +44,21 @@ const RestaurantOrders = ({allOrders, restaurantOwnerInfo, setAllOrders}) => {
         .catch(err => console.log(err));
     }
 
+    const handleOrderDeleteClick = orderId => {
+        fetch(`http://localhost:5000/deleteOrder/${orderId}`,{
+            method: 'DELETE',
+            headers: { 'Content-Type' : 'application/json'}
+        })
+        .then(res => res.json())
+        .then(returnedData => {
+            if(returnedData){
+                const newOrderList = allOrders.filter(order => order._id !== orderId);
+                setAllOrders(newOrderList);
+            }
+        })
+        .catch(err => console.log(err));
+    }
+
     return (
         <>
         <MainContentLayout title="My Orders">
@@ -83,7 +98,7 @@ const RestaurantOrders = ({allOrders, restaurantOwnerInfo, setAllOrders}) => {
                                         <button className="btn btn-danger" onClick={() => handleOrderStatusChangeClick(order, 'rejected')} disabled={order?.orderStatus === 'rejected' || order?.orderStatus === 'accept'}>Reject</button>
                                     </td>
                                     <td className="d-flex justify-content-around" >
-                                        <Button variant="info"><FontAwesomeIcon icon={faTrashAlt} /></Button>
+                                        <Button variant="danger" onClick={() => handleOrderDeleteClick(order?._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button>
                                     </td>
                                 </tr>
                             )

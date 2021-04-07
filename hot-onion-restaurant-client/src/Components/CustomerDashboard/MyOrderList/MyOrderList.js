@@ -60,7 +60,7 @@ const MyOrderList = ({allOrders, setAllOrders, user, allFoods}) => {
                                         <p>{supplierDetails?.deliveryPersonContact}</p>
                                     </td>
                                     <td>
-                                        <Badge pill variant={order?.orderStatus === 'pending' ? 'primary': 'danger'}>
+                                        <Badge pill variant={order?.orderStatus === 'pending' ? 'primary' : order?.orderStatus === 'rejected' ? 'danger' : order?.orderStatus === 'accept' ? 'success' : 'warning' }>
                                             {(order && order?.orderStatus?.toUpperCase()) || 'Pending'}
                                         </Badge>
                                     </td>

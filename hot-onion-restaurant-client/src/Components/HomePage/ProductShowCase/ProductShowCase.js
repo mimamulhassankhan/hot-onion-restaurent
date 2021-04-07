@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import ItemsPivot from '../ItemsPivot/ItemsPivot';
 
 const ProductShowCase = ({cart, allFoods, selectedRestaurant}) => {
-
     const filteredFoodItems = allFoods.filter(item => item.restaurantId === selectedRestaurant);
     return (
         <Container>

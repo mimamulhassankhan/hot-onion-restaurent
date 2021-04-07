@@ -4,18 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faShoppingCart} from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addLoggedinUser } from '../../Redux/Actions/RestaurantActions';
+import { addLoggedinUser, updateOwnerLogin } from '../../Redux/Actions/RestaurantActions';
 import { handleSignOut } from './signoutManager';
 import MiniCart from '../Shared/MiniCart/MiniCart';
 
-const TitleBar = ({cart, user, addLoggedinUser}) => {
+const TitleBar = ({cart, user, addLoggedinUser, restaurantOwnerInfo, updateOwnerLogin}) => {
     const [showMiniCart, setShowMiniCart] = useState(false);
     const {name, email} = user;
+    const {_id, restaurantName} = restaurantOwnerInfo;
 
     const signOut = () => {
         handleSignOut()
         .then(res => {
           addLoggedinUser(res);
+          updateOwnerLogin({})
         })
       }
     const showDropdown = e => {
@@ -38,19 +40,17 @@ const TitleBar = ({cart, user, addLoggedinUser}) => {
                     </Link>
                 </Navbar.Brand>    
                     {
-                        email ?
+                        email || _id ?
                         <div className="d-flex align-items-center w-50 justify-content-around">
-                            <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon>
-                            <Badge pill variant="warning">{cart.length}</Badge>
-                            <h5>{name}</h5>
+                            <h5>{name || restaurantName || 'Default'}</h5>
                             <Button onClick={signOut} variant="danger">Sign Out</Button> 
                         </div>   
                         : 
-                        <div className="d-flex align-items-center w-50 justify-content-around">
+                        <div className="d-flex align-items-center w-50 justify-content-end">
                             <Link to={'/dashboard/myorders'}>
                                 <h5>My Account</h5>
                             </Link>
-                            <NavDropdown title={`Cart (${cart.length})`} show={showMiniCart} onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+                            <NavDropdown title={`Cart (${cart.length})`} className="font-weight-bold" show={showMiniCart} onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
                                 <MiniCart></MiniCart>
                             </NavDropdown>
                             
@@ -68,12 +68,14 @@ const TitleBar = ({cart, user, addLoggedinUser}) => {
 const mapStateToProps = state => {
     return {
         cart: state.cart,
-        user: state.user
+        user: state.user,
+        restaurantOwnerInfo: state.restaurantOwnerInfo
     }
 }
 
 const mapDispatchToProps = {
-    addLoggedinUser : addLoggedinUser
+    addLoggedinUser : addLoggedinUser,
+    updateOwnerLogin: updateOwnerLogin
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TitleBar);

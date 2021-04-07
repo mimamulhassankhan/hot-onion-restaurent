@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyBgeZZivY3Iw4JDT9S5DPyL95Wm7EDvV2E",
-  authDomain: "hot-onion-restaurant-ltd.firebaseapp.com",
-  databaseURL: "https://hot-onion-restaurant-ltd.firebaseio.com",
-  projectId: "hot-onion-restaurant-ltd",
-  storageBucket: "hot-onion-restaurant-ltd.appspot.com",
-  messagingSenderId: "923782944543",
-  appId: "1:923782944543:web:ac718f054fbe9cd4ba022a"
+  apiKey: "AIzaSyBa7O-rUaMHmIrygv8cFO6J5Aa3KTtkhmY",
+  authDomain: "online-food-delivery-ltd.firebaseapp.com",
+  databaseURL: "https://online-food-delivery-ltd.firebaseio.com",
+  projectId: "online-food-delivery-ltd",
+  storageBucket: "online-food-delivery-ltd.appspot.com",
+  messagingSenderId: "1089672259063",
+  appId: "1:1089672259063:web:27b87d41974a6fceec7af2"
 };
 
-  export default firebaseConfig;
+export default firebaseConfig;

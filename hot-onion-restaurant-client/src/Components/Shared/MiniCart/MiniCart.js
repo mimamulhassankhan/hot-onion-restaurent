@@ -34,7 +34,9 @@ const MiniCart = ({cart}) => {
                     </div>
                 </div>
                 <br />
-                <Form.Control as={Link} to={`/dashboard/customer`} className="bg-danger text-white rounded-pill" type="button" defaultValue="Checkout" />
+                <Link to={`/dashboard/customer`}>
+                    <button  className="btn btn-danger btn-block text-white rounded-pill">Checkout</button>
+                </Link>
                 </div>
                 :
                 <>

@@ -63,7 +63,7 @@ const Cart = ({cart, user, addToCart, allOrders, setAllOrders, buttonDisabledSta
                 </div>
             </div>
             <br />
-            <input className="btn btn-danger rounded-pill btn-block" onClick={() => handlePlaceOrder()} type="button" value="Place Order" disabled={buttonDisabledState}/>
+            <input className="btn btn-danger rounded-pill btn-block" onClick={() => handlePlaceOrder()} type="button" value="Place Order" disabled={buttonDisabledState || cart.length <=0}/>
         </>
     );
 };
